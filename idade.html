@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gráfico - Faixa Etária</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background: #f5f6fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h2 {
+      font-family: Arial;
+      color: #333;
+    }
+    canvas {
+      max-width: 600px;
+      max-height: 600px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    a {
+      margin-top: 20px;
+      text-decoration: none;
+      background: #7367F0;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Distribuição por Faixa Etária</h2>
+  <canvas id="graficoIdade"></canvas>
+  <a href="index.html">⬅ Voltar ao início</a>
+
+  <script>
+    const pessoas = [
+      { nome: "Gaby", idade: 19 },
+      { nome: "Laisla", idade: 17 },
+      { nome: "Gui", idade: 17 },
+      { nome: "Jonatha", idade: 20 },
+      { nome: "Aline", idade: 18 },
+      { nome: "Alan", idade: 18 },
+      { nome: "Caio", idade: 23 },
+      { nome: "Josa", idade: 17 },
+      { nome: "Adriel", idade: 15 },
+      { nome: "Caique", idade: 15 },
+      { nome: "Camille", idade: 19 },
+      { nome: "Mayse", idade: 21 },
+      { nome: "Eduardo", idade: 18 },
+      { nome: "Ronald", idade: 19 },
+      { nome: "Beatriz", idade: 18 },
+      { nome: "Ivana", idade: 17 },
+      { nome: "Nathalia", idade: 19 },
+      { nome: "Bianca", idade: 21 },
+      { nome: "Bruno", idade: 21 }
+    ];
+
+    const faixaEtaria = {
+      "15–17 anos": pessoas.filter(p => p.idade >= 15 && p.idade <= 17).length,
+      "18–20 anos": pessoas.filter(p => p.idade >= 18 && p.idade <= 20).length,
+      "21+ anos": pessoas.filter(p => p.idade >= 21).length
+    };
+
+    new Chart(document.getElementById("graficoIdade"), {
+      type: "pie",
+      data: {
+        labels: Object.keys(faixaEtaria),
+        datasets: [{
+          data: Object.values(faixaEtaria),
+          backgroundColor: ["#FF9F43", "#00CFE8", "#28C76F"]
+        }]
+      },
+      options: {
+        animation: { animateRotate: true, duration: 2000 },
+        plugins: {
+          title: { display: true, text: "Faixa Etária dos Participantes" }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

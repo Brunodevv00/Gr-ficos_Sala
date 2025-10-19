@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gráfico - Trabalho</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background: #f5f6fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h2 { font-family: Arial; color: #333; }
+    canvas {
+      max-width: 600px;
+      max-height: 600px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    a {
+      margin-top: 20px;
+      text-decoration: none;
+      background: #7367F0;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Quem Somente Trabalha</h2>
+  <canvas id="graficoTrabalho"></canvas>
+  <a href="index.html">⬅ Voltar ao início</a>
+
+  <script>
+    const pessoas = [
+      { sit: "faculdade" }, { sit: "estuda 2em" }, { sit: "estuda 2em" },
+      { sit: "faculdade" }, { sit: "terminou o em" }, { sit: "concluiu em" },
+      { sit: "terminou o em e só trabalha" }, { sit: "estuda 2em" },
+      { sit: "estudando 9" }, { sit: "estudando 9" }, { sit: "faculdade" },
+      { sit: "estuda pra concurso" }, { sit: "concluiu o em" },
+      { sit: "estuda pra concurso" }, { sit: "estuda 3em" },
+      { sit: "estuda 3em" }, { sit: "concluiu o em" }, { sit: "concluiu o em" },
+      { sit: "faz faculdade" } // Bruno
+    ];
+
+    const somenteTrabalha = pessoas.filter(p =>
+      /trabalha/i.test(p.sit) && !/estuda|faculdade|curso/i.test(p.sit)
+    ).length;
+
+    new Chart(document.getElementById("graficoTrabalho"), {
+      type: "pie",
+      data: {
+        labels: ["Somente trabalha", "Outros"],
+        datasets: [{
+          data: [somenteTrabalha, pessoas.length - somenteTrabalha],
+          backgroundColor: ["#FFB400", "#00B894"]
+        }]
+      },
+      options: {
+        animation: { animateRotate: true, duration: 2000 },
+        plugins: { title: { display: true, text: "Situação de Trabalho" } }
+      }
+    });
+  </script>
+</body>
+</html>
